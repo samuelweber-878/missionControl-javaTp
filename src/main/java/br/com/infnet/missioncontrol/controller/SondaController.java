@@ -60,11 +60,11 @@ public class SondaController {
         if(id <= 0) {
             return ResponseEntity.badRequest().body(new ErrorResponse("Id invalido"));
         }
-        Sonda atualizada = sondaService.atualizar(id, entrada);
-
-        if(atualizada == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Sonda não localizada"));
+        if(sondaService.buscarPeloId(id) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ID não localizado"));
         }
+
+        Sonda atualizada = sondaService.atualizar(id, entrada);
         return ResponseEntity.ok().body(atualizada);
     }
 }
